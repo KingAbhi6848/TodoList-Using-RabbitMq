@@ -1,14 +1,11 @@
 import express from 'express';
+import path from 'path';
 import expressEjsLayouts from 'express-ejs-layouts';
 import userRoute from './src/Routes/user.route.js';
 import session from 'express-session';
-import db from './src/Config/mongoose.js';
-import todoRoute from './src/Routes/todo.route.js';
-// import jwtAuth from './src/Middlewares/jwt.middleware.js';
-import auth from './src/Middlewares/auth.middleware.js';
 import MongoStore from 'connect-mongo';
-import { closeConnection } from './src/Config/rabbitmq.js';
 import dotenv from 'dotenv';
+
 dotenv.config();
 
 const app = express();
@@ -18,7 +15,6 @@ app.use(express.static('./src/Public'));
 
 // Middleware to parse URL-encoded bodies
 app.use(express.urlencoded({ extended: false }));
-// Middleware to parse JSON bodies
 app.use(express.json());
 
 // Set view engine and views directory
@@ -30,37 +26,27 @@ app.use(expressEjsLayouts);
 app.set("layout extractScripts", true);
 app.set("layout extractStyles", true);
 
+// Session middleware
 app.use(session({
-  secret: 'keyboard cat',
+  secret: process.env.SESSION_SECRET || 'keyboard cat',
   resave: false,
   saveUninitialized: true,
   store: MongoStore.create({
-    mongoUrl: process.env.MONGODB_URI, // Replace with your MongoDB connection string
-    collectionName: 'sessions', // Optional: Specify the collection name
+    mongoUrl: process.env.MONGODB_URI,
+    collectionName: 'sessions',
   }),
-  cookie: { secure: false ,
-    maxAge: 180 * 60 * 1000
+  cookie: {
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: 180 * 60 * 1000 // 3 hours
   }
-}))
+}));
 
-app.use('/',todoRoute);
+// Routes
+app.use('/', todoRoute);
 app.use('/user', userRoute);
 
-
-process.on('SIGINT', async () => {
-  console.log('Received SIGINT. Closing connection...');
-  await closeConnection();
-  process.exit(0);
-});
-
-process.on('SIGTERM', async () => {
-  console.log('Received SIGTERM. Closing connection...');
-  await closeConnection();
-  process.exit(0);
-});
-
-
 // Start the server
-app.listen(9000, () => {
-  console.log('Server is running on http://localhost:9000');
+const PORT = 9000;
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
