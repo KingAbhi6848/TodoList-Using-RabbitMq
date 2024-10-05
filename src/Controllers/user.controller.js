@@ -5,7 +5,7 @@ import bcrypt from 'bcrypt';
 export default class UserController {
   
   signup(req, res) {
-    return res.render('signup',{error:null});
+    return res.render('signup',{errors:null});
   }
 
   signin(req, res) {

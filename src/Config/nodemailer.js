@@ -1,5 +1,9 @@
 import nodemailer from "nodemailer";
-import User from "../Models/user.model.js";
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const password = process.env.PASS;
 
 export function sendEmail(task) {
   console.log("Task object:", task); // Log the task object
@@ -9,7 +13,7 @@ export function sendEmail(task) {
     service: "gmail", // you can use other services like 'hotmail', 'smtp', etc.
     auth: {
       user: "sabhi8637@gmail.com", // your email
-      pass: "wmla cmjg eexi ugyc", // your email password or an app password
+      pass: password, // your email password or an app password
     },
   });
 

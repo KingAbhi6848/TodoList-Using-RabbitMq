@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
+import dotenv from 'dotenv';
 
-mongoose.connect("mongodb://127.0.0.1:27017/todo", {
+dotenv.config();
+const mongoDBURI = process.env.MONGODB_URI;
+mongoose.connect(mongoDBURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

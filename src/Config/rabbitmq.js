@@ -1,12 +1,15 @@
 // connection.js
 import amqp from "amqplib";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 let connection;
 let channel;
 
 const connectToRabbitMQ = async () => {
   if (!connection) {
-    connection = await amqp.connect("amqp://localhost");
+    connection = await amqp.connect(process.env.AMQP_URI);
     channel = await connection.createChannel();
     await channel.assertQueue("notifications_queue", { durable: true });
     console.log("Connected to RabbitMQ and channel is created.");

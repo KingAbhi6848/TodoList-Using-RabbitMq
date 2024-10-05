@@ -15,11 +15,11 @@ const todoSchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now, // Automatically set the creation date
+    default: Date.now, 
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User", // Reference to the user who created the todo
+    ref: "User", 
     required: true,
   },
 });
