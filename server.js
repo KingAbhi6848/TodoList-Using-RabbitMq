@@ -9,6 +9,7 @@ import auth from './src/Middlewares/auth.middleware.js';
 import MongoStore from 'connect-mongo';
 import { closeConnection } from './src/Config/rabbitmq.js';
 import dotenv from 'dotenv';
+import path from 'path';
 dotenv.config();
 
 const app = express();
@@ -23,7 +24,7 @@ app.use(express.json());
 
 // Set view engine and views directory
 app.set('view engine', 'ejs');
-app.set('views', './src/views');
+app.set('views', path.join(process.cwd(), 'src/views'));
 
 // Use EJS layouts
 app.use(expressEjsLayouts);
