@@ -23,7 +23,7 @@ app.use(express.json());
 
 // Set view engine and views directory
 app.set('view engine', 'ejs');
-app.set('views', './src/views');
+app.set('views', path.join(__dirname, 'src', 'views')); // Use absolute path
 
 // Use EJS layouts
 app.use(expressEjsLayouts);
