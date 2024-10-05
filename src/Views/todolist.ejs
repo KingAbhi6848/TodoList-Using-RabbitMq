@@ -1,0 +1,36 @@
+<link rel="stylesheet" href="/styles/todolist.css" />
+<div>
+  <form action="/user/logout" method="post">
+    <button type="submit">Logout</button>
+  </form>
+  <br>
+</div>
+
+<div class="todo-container">
+  <h1>Todo List</h1>
+  <form id="todo-form" action="/add" method="post">
+    <input type="text" id="task-title" name="name" placeholder="Task Name" required />
+    <input type="date" id="due-date" name="dueDate" required />
+    <textarea id="description" placeholder="Description" name="description" required></textarea>
+    <button type="submit">Add Task</button>
+  </form>
+</div>
+
+<div class="todo-list-container">
+  <h2>Your Tasks</h2>
+  <ul id="todo-list">
+    <% tasks.forEach(task => { %>
+      <li class="todo-item1" style="background-color: pink; border-radius: 5px; padding: 10px;">
+        <div>
+          <strong><%= task.name %></strong><hr>
+        </div>
+        <p><%= task.description %></p>
+        Due: <%= task.dueDate.toLocaleDateString() %> 
+        <button style="width: 80px; margin-left: 40%;" class="delete-btn" onclick="deleteTodoItem('<%= task._id %>')">Delete</button>
+      </li>
+      <br>
+    <% }) %>
+  </ul>
+</div>
+
+<script src="/js/todolist.js"></script>
