@@ -6,6 +6,7 @@ import db from './src/Config/mongoose.js';
 import todoRoute from './src/Routes/todo.route.js';
 // import jwtAuth from './src/Middlewares/jwt.middleware.js';
 import auth from './src/Middlewares/auth.middleware.js';
+import path from 'path';
 import MongoStore from 'connect-mongo';
 import { closeConnection } from './src/Config/rabbitmq.js';
 import dotenv from 'dotenv';
