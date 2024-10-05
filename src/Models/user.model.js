@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    // match: /^[a-zA-Z\s]*$/
   },
   email: {
     type: String,

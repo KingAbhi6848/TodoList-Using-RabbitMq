@@ -1,17 +1,15 @@
 import User from "../Models/user.model.js";
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 
-const secretKey = 'your_secret_key'; // Replace with your actual secret key
 
 export default class UserController {
-   
+  
   signup(req, res) {
-    return res.render('signup'); 
+    return res.render('signup',{error:null});
   }
 
   signin(req, res) {
-    return res.render('signin'); 
+    return res.render('signin',{error:null});
   }
 
   async createUser(req, res) {
@@ -20,17 +18,16 @@ export default class UserController {
     try {
       const existingUser = await User.findOne({ email });
       if (existingUser) {
-        return res.status(400).send("Email already in use");
-      }
+        return res.render('signup', { errors: [{ msg: "Email already in use" }] });
+            }
 
-      const hashedPassword = await bcrypt.hash(password, 10); 
+      const hashedPassword = await bcrypt.hash(password, 10);
       await User.create({ name, email, password: hashedPassword });
       
       console.log('User created');
       return res.redirect('/user/signin');
     } catch (error) {
       console.error('Error creating user:', error);
-      return res.status(500).send("Error creating user");
     }
   }
 
@@ -41,32 +38,30 @@ export default class UserController {
       const user = await User.findOne({ email });
       console.log(req.body);
       if (!user) {
-        return res.status(400).send('Invalid email or password');
+        return res.render('signin',{error: "Invalid Email or Password"});
       }
 
       const isMatch = await bcrypt.compare(password, user.password);
       console.log(isMatch);
       if (!isMatch) {
-        return res.status(400).send('Invalid email or password');
+        return res.render('signin',{error: "Invalid Email or Password"});
       }
 
-      // Store user email in session
       req.session.user = user;
 
       console.log('User logged in:', user);
-      return res.redirect('/'); // Redirect to the homepage or dashboard after login
+      return res.redirect('/');
     } catch (error) {
       console.error('Error during login:', error);
-      return res.status(500).send('Server error');
     }
   }
 
   logout(req, res) {
     req.session.destroy(err => {
       if (err) {
-        return res.status(500).send('Could not log out');
+        console.error('Could not log out:', err);
       }
-      res.redirect('/user/signin'); // Redirect to the homepage after logout
+      res.redirect('/user/signin');
     });
   }
 }

@@ -8,8 +8,7 @@ const controller = new todoController();
 
 todoRoute.get('/', auth,controller.getAllByEmail);
 todoRoute.post('/add',auth,controller.add);
-todoRoute.post('/update',)
-todoRoute.post('/delete',)
+todoRoute.post('/delete/:id', auth, controller.delete);
 
 
 export default todoRoute;

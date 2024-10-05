@@ -26,7 +26,10 @@
         </div>
         <p><%= task.description %></p>
         Due: <%= task.dueDate.toLocaleDateString() %> 
-        <button style="width: 80px; margin-left: 40%;" class="delete-btn" onclick="deleteTodoItem('<%= task._id %>')">Delete</button>
+        <form action="/delete/<%= task._id %>" method="post" style="display: inline-block;">
+
+          <button style="width: 100px; margin-left: 60%;" class="delete-btn" type="submit">Delete</button>
+        </form>
       </li>
       <br>
     <% }) %>

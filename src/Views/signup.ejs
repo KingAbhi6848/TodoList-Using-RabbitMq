@@ -1,5 +1,15 @@
     <div class="container">
         <h1>Create an Account</h1>
+        <% if (errors && errors.length > 0) { %>
+            <div class="error">
+              <ul>
+                <% errors.forEach(error => { %>
+                  <li><%= error.msg %></li>
+                <% }) %>
+              </ul>
+            </div>
+          <% } %>
+        
         <form action="/user/create" method="POST">
             <input type="text" name="name" placeholder="Name" required><br><br>
             <input type="email" name="email" placeholder="Email" required><br><br>
