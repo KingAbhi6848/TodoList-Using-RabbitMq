@@ -8,6 +8,8 @@ import todoRoute from './src/Routes/todo.route.js';
 import auth from './src/Middlewares/auth.middleware.js';
 import MongoStore from 'connect-mongo';
 import { closeConnection } from './src/Config/rabbitmq.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
 
@@ -33,7 +35,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   store: MongoStore.create({
-    mongoUrl: 'mongodb://127.0.0.1:27017/todo', // Replace with your MongoDB connection string
+    mongoUrl: MONGODB_URI, // Replace with your MongoDB connection string
     collectionName: 'sessions', // Optional: Specify the collection name
   }),
   cookie: { secure: false ,
