@@ -1,3 +1,9 @@
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const getDirname = (url) => dirname(fileURLToPath(url));
+
+const __dirname = getDirname(import.meta.url);
 import express from 'express';
 import expressEjsLayouts from 'express-ejs-layouts';
 import userRoute from './src/Routes/user.route.js';
@@ -25,7 +31,7 @@ app.use(express.json());
 
 // Set view engine and views directory
 app.set('view engine', 'ejs');
-app.set('views', './views');
+app.set('views',  path.join(__dirname, './views'));
 
 // Use EJS layouts
 app.use(expressEjsLayouts);
