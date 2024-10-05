@@ -24,7 +24,7 @@ app.use(express.json());
 
 // Set view engine and views directory
 app.set('view engine', 'ejs');
-app.set('views', path.join(process.cwd(), 'src/views'));
+app.set('views', path.join(process.cwd(), '/views'));
 
 // Use EJS layouts
 app.use(expressEjsLayouts);
