@@ -35,12 +35,11 @@ Ensure that you have the following installed:
   ```bash
   MONGODB_URI=<Your MongoDB Connection String>
   AMQP_URI=<Your RabbitMQ Connection String>
-  EMAIL_USER=<Your Email Username>
-  EMAIL_PASS=<Your Email Password>
+  PASS=<Your Email Password>
   
 ## Clone the repository:
-[git clone https://github.com/your-repo/todo-app.git](https://github.com/KingAbhi6848/TodoList-Using-RabbitMq.git)
-cd todo-app
+git clone https://github.com/KingAbhi6848/TodoList-Using-RabbitMq.git
+cd TodoList-Using-RabbitMq
 
 ## Install dependencies:
 npm install
@@ -60,30 +59,6 @@ npm install
 
 5. Receive email notifications: Upon task creation, RabbitMQ sends task details via email using Nodemailer.
 
-.
-├── src
-│   ├── Config
-│   │   ├── mongoose.js        # MongoDB connection setup
-│   │   ├── rabbitmq.js        # RabbitMQ connection setup
-│   │   ├── publisher.js       # Publishes messages to RabbitMQ
-│   ├── Controllers
-│   │   ├── todo.controller.js # Todo controller to handle tasks
-│   │   ├── user.controller.js # User controller for authentication
-│   ├── Middlewares
-│   │   ├── auth.middleware.js # Authentication middleware
-│   │   ├── validation.middleware.js # Request validation
-│   ├── Models
-│   │   ├── todo.model.js      # Todo schema
-│   │   ├── user.model.js      # User schema
-│   ├── Public                 # Static files (CSS, JS)
-│   ├── Routes
-│   │   ├── todo.route.js      # Todo routes
-│   │   ├── user.route.js      # User routes
-│   ├── views                  # EJS templates for rendering UI
-│   ├── consumer.js            # RabbitMQ consumer to receive notifications
-├── .env                       # Environment variables file
-├── app.js                     # Entry point of the application
-├── package.json               # Node.js dependencies and scripts
 
 
 API Routes
